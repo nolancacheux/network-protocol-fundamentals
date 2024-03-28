@@ -1,0 +1,126 @@
+EXERCICE 1 :
+
+
+1)
+
+La table ARP (Address Resolution Protocol) sert à associer une adresse IP à son adresse Ethernet (MAC) correspondante dans un réseau local. Sachant que leurs caches ARP sont déjà renseignés, voici comment se présenterait la table ARP pour chaque poste selon les informations fournies :
+
+Poste n°1
+
+IP: 196.18.1.4 / 24
+Ethernet: 08:00:12:45:25:87 
+
+IP: 196.18.1.8 / 24
+Ethernet: 08:00:12:ad:29:bc
+
+
+Poste n°2
+
+IP: 196.18.1.4 / 24
+Ethernet: 08:00:12:45:25:87
+Poste n°3
+
+IP: 196.18.1.8 / 24
+Ethernet: 08:00:12:ad:29:bc
+2) L'échange entre le poste n°1 et le poste n°2
+Quand le poste n°1 envoie un datagramme au poste n°2, voici les informations qui seraient présentes dans les entêtes Ethernet et IP :
+
+Entête Ethernet
+@ src (Adresse source) : 08:00:12:9a:bf:82
+
+L'adresse Ethernet du poste n°1.
+@ dst (Adresse destination) : 08:00:12:45:25:87
+
+L'adresse Ethernet du poste n°2.
+Support
+
+Détails physiques de la connexion, comme le câblage utilisé.
+Codage
+
+Méthode de codage des signaux pour la transmission.
+Adr physique + Data’’
+
+L'adresse physique (ici Ethernet) est utilisée pour la couche liaison de données, permettant la transmission des données ('Data’’) sur le réseau local.
+Adr logique + Data’
+
+L'adresse logique (adresse IP) est utilisée pour la couche réseau, encapsulant les données ('Data’) avec l'adresse IP de destination et de source.
+Contrôle + Data
+
+Informations de contrôle pour la gestion des erreurs, le flux de données, et les données elles-mêmes.
+Entête IP
+Data @ src : 196.18.1.2
+
+L'adresse IP du poste n°1, l'émetteur du datagramme.
+@ dst : 196.18.1.4
+
+L'adresse IP du poste n°2, le destinataire du datagramme.
+
+
+2)
+
+voici les informations qui composent les entêtes de chaque phase d'échange lorsqu'un datagramme est envoyé du poste n°1 au poste n°2.
+
+Entête IP
+@ src (Source IP): 196.18.1.2
+
+L'adresse IP du poste n°1.
+@ dst (Destination IP): 196.18.1.4
+
+L'adresse IP du poste n°2.
+Entête Ethernet
+@ src (Source MAC): 08:00:12:9a:bf:82
+
+L'adresse Ethernet (MAC) du poste n°1.
+@ dst (Destination MAC): 08:00:12:45:25:87
+
+L'adresse Ethernet (MAC) du poste n°2.
+
+
+
+
+3)
+Phase n°1 : ARP Request
+Dans cette phase, le poste n°1 envoie une requête ARP pour demander l'adresse MAC correspondant à l'adresse IP du poste n°2.
+
+Entête Ethernet pour l'ARP Request :
+
+@ src : 08:00:12:9a:bf:82 (adresse MAC du poste n°1)
+@ dst : ff:ff:ff:ff:ff:ff (adresse de broadcast pour les requêtes ARP)
+Phase n°2 : ARP Reply
+En réponse à la requête ARP, le poste n°2 envoie une réponse ARP indiquant son adresse MAC.
+
+Entête Ethernet pour l'ARP Reply :
+
+@ src : 08:00:12:ad:29:bc (adresse MAC du poste n°2)
+@ dst : 08:00:12:9a:bf:82 (adresse MAC du poste n°1 qui a initié la requête ARP)
+Phase n°3 : Envoi du Datagramme IP
+Après avoir reçu la réponse ARP, le poste n°1 peut maintenant envoyer le datagramme IP au poste n°2 en utilisant l'adresse MAC obtenue.
+
+Entête Ethernet pour le Datagramme IP :
+
+@ src : 08:00:12:9a:bf:82 (adresse MAC du poste n°1)
+@ dst : 08:00:12:ad:29:bc (adresse MAC du poste n°2 obtenue via ARP)
+
+4) 
+
+Tableau ARP pour le Poste n°1
+
+IP	Ethernet
+196.18.1.4	08:00:12:45:25:87
+
+Le poste n°1 a maintenant l'adresse Ethernet du poste n°2 grâce à la réponse ARP qu'il a reçue.
+
+Tableau ARP pour le Poste n°2
+
+IP	Ethernet
+196.18.1.2	08:00:12:9a:bf:82
+
+Le poste n°2 a ajouté l'adresse Ethernet du poste n°1 à sa table ARP quand il a reçu la requête ARP et y a répondu.
+
+Tableau ARP pour le Poste n°3
+
+IP	Ethernet
+196.18.1.2	08:00:12:9a:bf:82
+196.18.1.4	08:00:12:45:25:87
+
+Le poste n°3 n'a pas été impliqué directement dans les échanges entre les postes n°1 et n°2, donc il n'aurait pas mis à jour sa table ARP avec des nouvelles informations à moins qu'il ait intercepté les échanges sur le réseau. Si le poste n°3 avait été impliqué dans un échange ou avait écouté les échanges sur le réseau, alors il aurait les entrées ARP correspondantes. Si non, sa table ARP ne contiendrait pas les adresses du poste n°1 et du poste n°2. Pour cette réponse, j'ai supposé qu'il a pu écouter les échanges et donc mis à jour sa table ARP.
